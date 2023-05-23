@@ -10,14 +10,76 @@
         <div id="root"></div>
 
         <script type="text/babel">
-        ReactDOM.render(
-            <ul>
-                <li>🤖</li>
-                <li>🤠</li>
-                <li>🌝</li>
-            </ul>,
-            document.getElementById("root")
-        );
+            function Header(props) {
+                console.log(props)
+                return (
+                    <header>
+                        <h1>
+                            {props.name}'s Kitchen
+                        </h1>
+                    </header>
+                );
+            }
+            function Main(props) {
+                return (
+                    <section>
+                        <img 
+                        height={200}
+                        src="./images/restaurant.jpg"
+                        alt="Neatly set restaurant tables with sparkling wine glasses"
+                        />
+                        <ul>
+                            {props.dishes.map((dish) => (
+                                <li key={dish.id}>
+                                    {dish.title}</li>
+                            ))}
+                        </ul>
+                    </section>
+                );
+            }
+
+            function Footer(props) {
+                return (
+                    <footer>
+                        <p>
+                            Copyright {props.year}
+                        </p>    
+                    </footer>
+                );
+            }
+
+            const dishes = [
+                "Black Bean Soup",
+                "Mac and Cheese",
+                "Ratatoullie",
+                "Bitches"
+            ]
+
+            const dishesObjects = dishes.map(
+                (dish, i) => ({
+                    id: i,
+                    title: dish
+                })
+            );
+
+            function App() {
+                return (
+                    <React.Fragment>
+                        <Header name="Alice"/>
+                        <Main 
+                            adjective="divine"
+                            dishes = {dishesObjects}
+                        />
+                        <Footer 
+                        year ={new Date().getFullYear()}
+                        />
+                    </React.Fragment>
+                );
+            }
+            ReactDOM.render(
+                <App />,
+                document.getElementById("root")
+            );
         </script>
     </body>
 </html>
